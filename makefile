@@ -1,29 +1,37 @@
 # Define the compiler and flags
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -Iinclude
+
+# Define the directories
+SRCDIR = src
+INCDIR = include
+OBJDIR = obj
+BINDIR = bin
 
 # Define the target executable
-TARGET = flysh
+TARGET = $(BINDIR)/flysh
 
 # Define the source and object files
-SRCS = main.c
-OBJS = main.o
+SRCS = $(wildcard $(SRCDIR)/*.c)
+OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 # Default rule to build the target
 all: $(TARGET)
 
 # Rule to build the executable
 $(TARGET): $(OBJS)
+	@mkdir -p $(BINDIR)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-# Rule to compile the source file into an object file
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o
+# Rule to compile each source file into an object file
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Rule to clean up the build directory
 .PHONY: clean
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -rf $(OBJDIR) $(BINDIR)
 
 # Rule to run the shell
 .PHONY: run
