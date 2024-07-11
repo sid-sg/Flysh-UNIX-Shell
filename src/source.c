@@ -1,7 +1,7 @@
 #include<errno.h>
 #include "../include/source.h"
 
-char getNextChar(struct scannerSource *src){
+char getNextChar(struct source *src){
    if( !src || !src->buffer){
         errno = ENODATA;
         return ERRCHAR;
@@ -9,8 +9,8 @@ char getNextChar(struct scannerSource *src){
 
    ++src->currentPosition;
 
-   if(src->currentPosition >= src->bufferSize){
-        src->currentPosition = src->bufferSize;
+   if(src->currentPosition >= src->bufferLength){
+        src->currentPosition = src->bufferLength;
         return EOF;
    }
 
@@ -18,14 +18,14 @@ char getNextChar(struct scannerSource *src){
 
 }
 
-void ungetNextChar(struct scannerSource *src){
+void ungetNextChar(struct source *src){
     if(src->currentPosition < 0){
         return;
     }
     --src->currentPosition; 
 }
 
-char peekNextChar(struct scannerSource *src){
+char peekNextChar(struct source *src){
     if( !src || !src->buffer){
             errno = ENODATA;
             return ERRCHAR;
@@ -33,15 +33,15 @@ char peekNextChar(struct scannerSource *src){
     
     size_t nextPosition = src->currentPosition + 1;
  
-    if(nextPosition >= src->bufferSize){
-            nextPosition = src->bufferSize;
+    if(nextPosition >= src->bufferLength){
+            nextPosition = src->bufferLength;
             return EOF;
     }
 
     return src->buffer[nextPosition]; 
 }
 
-void skipWhitespace(struct scannerSource *src){
+void skipWhitespace(struct source *src){
     if( !src || !src->buffer){
         return;    
     }
