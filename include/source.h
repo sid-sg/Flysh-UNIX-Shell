@@ -14,7 +14,7 @@ struct source{
 };
 
 char getNextChar(struct source *src);
-void ungetNextChar(struct source *src);
+void ungetChar(struct source *src);
 char peekNextChar(struct source *src);
 void skipWhitespace(struct source *src);
 

@@ -18,7 +18,7 @@ char getNextChar(struct source *src){
 
 }
 
-void ungetNextChar(struct source *src){
+void ungetChar(struct source *src){
     if(src->currentPosition < 0){
         return;
     }
