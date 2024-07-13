@@ -8,7 +8,7 @@
 
 char *tokenBuffer = NULL;
 size_t tokenBufferLength = 0;
-size_t tokenBufferIndex = -1;
+int tokenBufferIndex = -1;
 
 
 struct token EOFtoken = {
