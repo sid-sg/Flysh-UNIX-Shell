@@ -1,4 +1,7 @@
-#include<errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include "../include/scanner.h"
 #include "../include/source.h"
 #include "../include/shell.h"
@@ -21,7 +24,7 @@ void addToBuffer(char charToAdd){
 
         if(!temp){
             errno = ENOMEM;
-            return &EOFtoken; 
+            return; 
         }
 
         tokenBuffer = temp;
@@ -122,13 +125,13 @@ struct token *tokenize(struct source *src){
         tokenBufferIndex--;
     }
 
-    tokenBuffer[tok] = '\0';
+    tokenBuffer[tokenBufferIndex] = '\0';
 
     struct token *newToken = createToken(tokenBuffer);
 
     if(!newToken){
         fprintf(stderr, "error: memory allocation failed to buffer, %s\n", strerror(errno));
-        return &EOFtoken
+        return &EOFtoken;
     }
 
     newToken->src = src;

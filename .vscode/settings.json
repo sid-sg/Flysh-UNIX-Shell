@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "scanner.h": "c"
+        "scanner.h": "c",
+        "source.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

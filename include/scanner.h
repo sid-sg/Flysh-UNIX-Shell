@@ -11,6 +11,6 @@ struct token{
 extern struct token EOFtoken; 
 
 struct token *tokenize(struct source *src);
-void freeToken (struct source *src);
+void freeToken (struct token *tokenCreated);
 
 #endif
