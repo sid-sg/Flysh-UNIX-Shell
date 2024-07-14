@@ -1,21 +1,17 @@
 #include<errno.h>
+#include <stdio.h>
 #include "../include/source.h"
 
-char getNextChar(struct source *src){
-   if( !src || !src->buffer){
-        errno = ENODATA;
-        return ERRCHAR;
-   } 
-
-   ++src->currentPosition;
-
-   if(src->currentPosition >= src->bufferLength){
-        src->currentPosition = src->bufferLength;
+char getNextChar(struct source *src) {
+    if(!src || !src->buffer || src->currentPosition >= src->bufferLength){
         return EOF;
-   }
+    }
 
-   return src->buffer[src->currentPosition];
-
+    char c = src->buffer[src->currentPosition++];
+    if(c == '\0'){
+        return EOF;
+    }
+    return c;
 }
 
 void ungetChar(struct source *src){

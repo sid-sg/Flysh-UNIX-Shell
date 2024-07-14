@@ -8,7 +8,7 @@ enum nodeType{
 
 
 enum valType{
-    VAL_SINT,
+    VAL_SINT = 1,
     VAL_UINT,
     VAL_SLL,
     VAL_ULL,
@@ -16,7 +16,7 @@ enum valType{
     VAL_DOUBLE,
     VAL_LDOUBLE,
     VAL_CHAR,
-    VAR_STRING
+    VAL_STRING
 };
 
 union valSymbol{
@@ -40,9 +40,8 @@ struct node{
 };
 
 struct node *newNode(enum nodeType nodeType);
-
 void addChildNode(struct node *parent, struct node *child);
-void freeTree(struct node *node);
+void freeNodeTree(struct node *node);
 void setNodeVal(struct node *node, char *val);
 
 #endif

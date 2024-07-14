@@ -1,4 +1,3 @@
-
 #include "../include/parser.h"
 #include "../include/node.h"
 
@@ -23,7 +22,7 @@ struct node *parseCommand(struct token *token){
 
         struct node *word = newNode(NODE_VAR);
         if(!word){
-            freeTree(commandNode);
+            freeNodeTree(commandNode);
             freeToken(token);
             return NULL;
         }

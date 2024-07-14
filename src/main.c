@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <errno.h>
 #include "../include/shell.h"
+#include "../include/scanner.h"
+#include "../include/parser.h"
+#include "../include/source.h"
+#include "../include/executor.h"
 
 #define BUFFER_SIZE 1024
 
@@ -33,7 +37,12 @@ int main(int argc, char **argv){
             break;
         }
 
-        printf("%s\n", inputCmd);
+        struct source src;
+        src.buffer = inputCmd;
+        src.bufferLength = strlen(inputCmd);
+        src.currentPosition = 0;
+
+        parseAndExecute(&src);
 
         free(inputCmd);
 
@@ -95,7 +104,29 @@ char* readInput(void){
         }
     }
 
-    return cmd;
+    return cmd;   
+}
 
-        
+int parseAndExecute(struct source *src){
+    skipWhitespace(src);
+
+    struct token *token = tokenize(src);
+
+    if(token == &EOFtoken){
+        return 0;
+    }
+
+    while(token && token != &EOFtoken){
+        struct node *command = parseCommand(token);
+
+        if(!command){
+            break;
+        }
+
+        doCommand(command);
+        freeNodeTree(command);
+        token = tokenize(src);
+    }
+
+    return 1;
 }

@@ -117,7 +117,7 @@ struct token *tokenize(struct source *src){
 
     } while( (nextChar = getNextChar(src)) != EOF );
 
-    if(endloop == 0){
+    if(endloop == 0){    
         return &EOFtoken;
     } 
 
