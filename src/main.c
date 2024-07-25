@@ -9,6 +9,8 @@
 #include "../include/executor.h"
 
 #define BUFFER_SIZE 1024
+#define KNRM  "\x1B[0m"
+#define KGRN  "\x1B[32m"
 
 
 int main(int argc, char **argv){
@@ -53,12 +55,14 @@ int main(int argc, char **argv){
 
 
 void printASCII(void){
+    printf("%s", KGRN);
     printf("  _____.__               .__     \n");
     printf("_/ ____\\  | ___.__. _____|  |__  \n");
     printf("\\   __\\|  |<   |  |/  ___/  |  \\ \n");
     printf(" |  |  |  |_\\___  |\\___ \\|   Y  \\ \n");
     printf(" |__|  |____/ ____/____  >___|  / \n");
-    printf("            \\/         \\/     \\/ \n");   
+    printf("            \\/         \\/     \\/ \n"); 
+    printf("%s", KNRM);  
     fflush(stdout);
 }
 
